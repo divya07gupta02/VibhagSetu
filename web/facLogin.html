@@ -1,0 +1,175 @@
+<html>
+<head>
+    <title>Login | Vibhag Setu</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        
+        function showForgot() {
+    hideAll();
+    document.getElementById("forgotBox").style.display = "block";
+}
+function backToLogin() {
+    document.getElementById("forgotBox").style.display = "none";
+    document.getElementById("loginBox").style.display = "block";
+}
+    </script>
+</head>
+<body data-role="faculty">
+
+<div class="hero login-bg">
+    <div class="back-btn" onclick="goBack()">&#8592;</div>
+    <div class="blur-bg"></div>
+    <div class="overlay"></div>
+
+    <!-- HEADER -->
+    <div class="top-bar">
+        <div class="header-content">
+            <img src="images1/logo.jpeg" class="top-logo" alt="Logo">
+            <div class="header-text">
+                <h2>VIBHAG SETU</h2>
+                <p>Faculty Administration System</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGIN / SIGNUP CONTAINER -->
+    <div class="auth-container">
+        <form class="auth-box" id="loginBox" action="FacServlet" method="post">
+            <input type="hidden" id="userRole" value="faculty">
+            <h3>Sign In</h3>
+            <p id="loginError" class="error-msg hidden">
+                Please fill all required fields
+            </p>
+
+<!--            <input type="email" name="username" id="loginEmail" placeholder="Email address" required>-->
+             <input type="text" name="username" id="loginUsername" placeholder="Username" required>
+            <input type="password" name="password" id="loginPassword" placeholder="Password" required>
+            <p id="loginError" class="error-msg hidden"></p>
+            <div class="auth-links">
+                <p class="switch-text">
+    <span onclick="showForgot()">Forgot password?</span>
+</p>
+
+
+            </div>
+
+            <button class="auth-btn" type="submit" onclick="return validateLogin()">Login</button>
+            
+            
+        </form>
+        <!-- FORGOT PASSWORD -->
+<div class="auth-box hidden" id="forgotBox">
+    <h3>Forgot Password</h3>
+
+    <form id="forgotForm" onsubmit="return false;">
+
+        <input type="email"
+               id="forgotEmail"
+               placeholder="Enter your email" required>
+
+        <p id="forgotMsg" class="error-msg hidden"></p>
+
+        <button type="submit" class="auth-btn">
+    Send OTP
+</button>
+
+
+    </form>
+
+    <p class="switch-text">
+        <span onclick="backToLogin()">Back to Sign in</span>
+
+    </p>
+</div>
+
+
+
+<!-- OTP VERIFY -->
+<div class="auth-box hidden" id="otpBox">
+    <h3>Verify OTP</h3>
+
+    <input type="text" id="otpInput" placeholder="Enter OTP">
+
+    <p id="otpMsg" class="error-msg hidden"></p>
+
+    <p id="otpTimer" class="otp-timer">02:00</p>
+
+    <button class="auth-btn" onclick="verifyOtp()">Verify OTP</button>
+    <p class="text-link">
+    <span onclick="resendOtp()">Resend OTP</span>
+</p>
+
+</div>
+
+
+<!-- RESET PASSWORD -->
+<div class="auth-box hidden" id="resetBox">
+    <h3>Reset Password</h3>
+
+    <input
+        type="password"
+        id="newPassword"
+        placeholder="New Password"
+        required
+    >
+
+    <input
+        type="password"
+        id="confirmNewPassword"
+        placeholder="Confirm Password"
+        required
+    >
+
+    <p id="resetMsg" class="error-msg hidden"></p>
+
+    <button class="auth-btn" onclick="resetPassword()">Change Password</button>
+</div>
+
+        
+    </div>
+    <!-- PASSWORD SUCCESS POPUP -->
+<div id="successOverlay" class="overlay-popup hidden">
+    <div class="popup-box">
+        <h3>Password Changed Successfully</h3>
+        <p>Your password has been updated.</p>
+        <button class="auth-btn" onclick="closeSuccessPopup()">OK</button>
+    </div>
+</div>
+    <div class="back-btn" onclick="goBack()">
+    <svg viewBox="0 0 24 24" width="22" height="22">
+        <path d="M15 18l-6-6 6-6"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+    </svg>
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+<script>
+    var params = new URLSearchParams(window.location.search);
+    var error = params.get("error");
+
+    if (error === "invalid") {
+        var errorBox = document.getElementById("loginError");
+        errorBox.innerText = "Invalid username or password";
+        errorBox.classList.remove("hidden");
+    }
+    
+    
+    // Add this inside your script tag in facLogin.html
+//    window.onload = function() {
+//    const params = new URLSearchParams(window.location.search);
+//    if (params.get("reset") === "success") {
+//        showSuccessPopup(); // Show the popup if the URL has ?reset=success
+//    }
+//};
+
+</script>
+
+</body>
+</html>

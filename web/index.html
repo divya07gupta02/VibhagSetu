@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VIBHAG SETU</title>
+        <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="hero">
+    <div class="blur-bg"></div>
+    <div class="overlay"></div>
+
+    <div class="content">
+       <img src="images1/logo.jpeg" alt="Logo" class="logo">
+
+
+        <h1>VIBHAG SETU</h1>
+        <p>Faculty Administration System</p>
+
+        <div class="loading-container">
+    <span class="loading-text">Loading</span>
+    <div class="loader"></div>
+</div>
+
+
+    </div>
+</div>
+
+<script>
+  var params = new URLSearchParams(window.location.search);
+  var role = params.get("role");
+
+  setTimeout(() => {
+    if (role === "admin") {
+      window.location.href = "adminLogin.html";
+    } else {
+      window.location.href = "login_as.html";
+    }
+  }, 4000);
+</script>
+
+
+</body>
+</html>

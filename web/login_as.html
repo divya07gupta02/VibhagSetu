@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login As | Vibhag Setu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="hero login-bg">
+    <div class="blur-bg"></div>
+    <div class="overlay"></div>
+
+    <!-- CENTER HEADER -->
+    <div class="top-bar">
+    <div class="header-content">
+        <img src="images1/logo.jpeg" class="top-logo">
+        <div class="header-text">
+            <h2>VIBHAG SETU</h2>
+            <p>Faculty Administration System</p>
+        </div>
+    </div>
+</div>
+
+
+    <!-- STABLE LOGIN OPTIONS -->
+    <div class="login-section">
+
+
+    <!-- FACULTY -->
+    <div class="login-card faculty" onclick="loginAs('faculty')">
+        <svg class="card-icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="8" r="4" fill="#333"/>
+            <rect x="4" y="14" width="16" height="6" rx="3" fill="#333"/>
+        </svg>
+        <p>Login as Faculty</p>
+    </div>
+
+    <!-- CR -->
+    <div class="login-card cr" onclick="loginAs('cr')">
+        <svg class="card-icon" viewBox="0 0 24 24">
+            <circle cx="8" cy="9" r="3" fill="#333"/>
+            <circle cx="16" cy="9" r="3" fill="#333"/>
+            <rect x="4" y="14" width="16" height="5" rx="2.5" fill="#333"/>
+        </svg>
+        <p>Login as CR</p>
+    </div>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+<script>
+    function loginAs(role) {
+    if (role === 'faculty') {
+        window.location.href = "facLogin.html";
+    } else if (role === 'cr') {
+        window.location.href = "CrLogin.html";
+    }
+}
+</script>
+
+</body>
+</html>

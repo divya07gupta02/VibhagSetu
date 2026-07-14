@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Records | Vibhag Setu</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+        }
+
+        h2 {
+            text-align: center;
+            color: #004d40;
+            margin-bottom: 30px;
+        }
+
+        /* OPTION CARDS */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            width: 260px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            background: #e0f2f1;
+        }
+
+        /* TABLE */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #004d40;
+            color: white;
+        }
+
+        .delete-btn {
+            padding: 8px 16px;
+            background: #c62828;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            background: #b71c1c;
+        }
+
+        .back-btn {
+            margin-bottom: 20px;
+            cursor: pointer;
+            color: #004d40;
+            font-weight: bold;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- STEP 1: OPTIONS -->
+    <div id="options">
+        <h2>Delete Records</h2>
+
+        <div class="card-container">
+            <div class="card" onclick="showFaculty()">
+                <h3>Delete Faculty Records</h3>
+                <p>Remove faculty data</p>
+            </div>
+
+            <div class="card" onclick="showCR()">
+                <h3>Delete CR Records</h3>
+                <p>Remove CR data</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- STEP 2: FACULTY DELETE -->
+    <div id="facultySection" class="hidden">
+        <div class="back-btn" onclick="goBack()">← Back</div>
+        <h2>Delete Faculty Records</h2>
+
+        <table>
+            <tr>
+                <th>Faculty ID</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Action</th>
+            </tr>
+
+            <tr>
+                <td>F101</td>
+                <td>Dr. A Sharma</td>
+                <td>CSE</td>
+                <td>
+                    <button class="delete-btn" onclick="confirmDelete()">Delete</button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>F102</td>
+                <td>Dr. R Mehta</td>
+                <td>IT</td>
+                <td>
+                    <button class="delete-btn" onclick="confirmDelete()">Delete</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- STEP 3: CR DELETE -->
+    <div id="crSection" class="hidden">
+        <div class="back-btn" onclick="goBack()">← Back</div>
+        <h2>Delete CR Records</h2>
+
+        <table>
+            <tr>
+                <th>CR ID</th>
+                <th>Name</th>
+                <th>Class</th>
+                <th>Action</th>
+            </tr>
+
+            <tr>
+                <td>CR01</td>
+                <td>Ananya Singh</td>
+                <td>CSE 3rd Year</td>
+                <td>
+                    <button class="delete-btn" onclick="confirmDelete()">Delete</button>
+                </td>
+            </tr>
+
+            <tr>
+                <td>CR02</td>
+                <td>Rohit Verma</td>
+                <td>IT 2nd Year</td>
+                <td>
+                    <button class="delete-btn" onclick="confirmDelete()">Delete</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+<script>
+    function showFaculty() {
+        document.getElementById("options").style.display = "none";
+        document.getElementById("facultySection").style.display = "block";
+        document.getElementById("crSection").style.display = "none";
+    }
+
+    function showCR() {
+        document.getElementById("options").style.display = "none";
+        document.getElementById("crSection").style.display = "block";
+        document.getElementById("facultySection").style.display = "none";
+    }
+
+    function goBack() {
+        document.getElementById("options").style.display = "block";
+        document.getElementById("facultySection").style.display = "none";
+        document.getElementById("crSection").style.display = "none";
+    }
+
+    function confirmDelete() {
+        if (confirm("Are you sure you want to delete this record?")) {
+            alert("Record deleted (frontend only)");
+        }
+    }
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,348 @@
+<html>
+<head>
+    <title>Login | Vibhag Setu</title>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        function showSignup() {
+            document.getElementById("loginBox").style.display = "none";
+            document.getElementById("signupBox").style.display = "block";
+        }
+        function showLogin() {
+    document.getElementById("signupBox").style.display = "none";
+   
+    document.getElementById("loginBox").style.display = "block";
+}
+function backToLogin() {
+    document.getElementById("forgotBox").style.display = "none";
+    document.getElementById("loginBox").style.display = "block";
+}
+
+
+
+    </script>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</head>
+<body data-role="admin">
+
+
+<div class="hero login-bg">
+
+    <div class="blur-bg"></div>
+    <div class="overlay"></div>
+
+    <!-- HEADER -->
+    <div class="top-bar">
+        <div class="header-content">
+            <img src="images1/logo.jpeg" class="top-logo" alt="Logo">
+            <div class="header-text">
+                <h2>VIBHAG SETU</h2>
+                <p>Faculty Administration System</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- LOGIN / SIGNUP CONTAINER -->
+    <div class="auth-container">
+        <form class="auth-box" id="loginBox" action="AdminServlet" method="post">
+            <input type="hidden" id="userRole" value="admin">
+            <h3 class="admin-title">Admin Login</h3>
+<div class="admin-line"></div>
+
+    
+<!--            <input type="email" name="username" id="loginEmail" placeholder="Email address" required>-->
+            <input type="text" name="username" id="loginUsername" placeholder="Username" required>
+            <input type="password" name="password" id="loginPassword" placeholder="Password" required>
+            <p id="loginError" class="error-msg hidden"></p>
+            <div class="auth-links">
+                <p class="switch-text">
+    <span onclick="showForgot()">Forgot password?</span>
+</p>
+
+
+            </div>
+
+            <button class="auth-btn" type="submit" onclick="return validateLogin()">Login</button>
+            
+
+            <div class="separator">
+                <span>OR</span>
+            </div>
+<!--            <button type="button" class="google-btn" onclick="signInWithGoogle()">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Logo">
+                                                                Sign in with Google
+            </button>-->
+
+            <!--google sign in-->
+            <div id="g_id_onload"
+               data-client_id="957858195854-a0pd436gchl7s4okgqh8l8pdu2pt81hj.apps.googleusercontent.com"
+                data-callback="handleCredentialResponse">
+            </div>
+            <div class="g_id_signin" data-type="standard"></div>
+
+            <p class="switch-text">
+                Don't have an account?
+                <span onclick="showSignup()">Sign up</span>
+            </p>
+
+            
+        </form>
+
+        <!-- SIGNUP FORM -->
+        <div class="auth-box hidden" id="signupBox">
+            <h3>Sign Up</h3>
+            <form id="signupForm" action = "SignupServlet" onsubmit="return validateSignup();" method="post">
+                <input type="text" name ="fullname" id="signupName" placeholder="Full Name" required>
+                <input type="text" name="username" id="signupUser" placeholder="Create Username" required>
+                <input type="email" name="email" id="signupEmail" placeholder="Email address" required>
+                <input type="text" name="contact" id="signupContact" placeholder="Contact Number" required>
+                <input type="password" name="password" id="signupPassword" placeholder="Password" required>
+                <input type="password" name="confirmPassword" id="signupConfirm" placeholder="Confirm Password" required>
+
+                <!-- error / success message -->
+                <p id="signupMsg" class="error-msg hidden"></p>
+
+                <button type="submit" class="auth-btn">Create Account</button>
+            </form>
+            <p class="switch-text">
+                Already have an account?
+                <span onclick="return showLogin()">Sign in</span>
+            </p>
+        </div>
+        <!-- FORGOT PASSWORD -->
+<div class="auth-box hidden" id="forgotBox">
+    <h3>Forgot Password</h3>
+
+    <form id="forgotForm" onsubmit="return false;">
+
+        <input type="email"
+               id="forgotEmail"
+               placeholder="Enter your email" required>
+
+        <p id="forgotMsg" class="error-msg hidden"></p>
+
+        <button type="submit" class="auth-btn">
+    Send OTP
+</button>
+
+
+    </form>
+
+    <p class="switch-text">
+        <span onclick="backToLogin()">Back to Sign in</span>
+
+    </p>
+</div>
+
+
+
+<!-- OTP VERIFY -->
+<div class="auth-box hidden" id="otpBox">
+    <h3>Verify OTP</h3>
+
+    <input type="text" id="otpInput" placeholder="Enter OTP">
+
+    <p id="otpMsg" class="error-msg hidden"></p>
+
+    <p id="otpTimer" class="otp-timer">02:00</p>
+
+    <button class="auth-btn" onclick="verifyOtp()">Verify OTP</button>
+    <p class="text-link">
+    <span onclick="resendOtp()">Resend OTP</span>
+</p>
+
+</div>
+
+
+<!-- RESET PASSWORD -->
+<div class="auth-box hidden" id="resetBox">
+    <h3>Reset Password</h3>
+
+    <input
+        type="password"
+        id="newPassword"
+        placeholder="New Password"
+        required
+    >
+
+    <input
+        type="password"
+        id="confirmNewPassword"
+        placeholder="Confirm Password"
+        required
+    >
+
+    <p id="resetMsg" class="error-msg hidden"></p>
+
+    <button class="auth-btn" onclick="resetPassword()">Change Password</button>
+</div>
+
+    </div>
+    <!-- PASSWORD SUCCESS POPUP -->
+<div id="successOverlay" class="overlay-popup hidden">
+    <div class="popup-box">
+        <h3>Password Changed Successfully</h3>
+        <p>Your password has been updated.</p>
+        <button class="auth-btn" onclick="closeSuccessPopup()">OK</button>
+    </div>
+</div>
+    <!-- BACK BUTTON -->
+<div class="back-btn" onclick="goBack()">
+    <svg viewBox="0 0 24 24" width="22" height="22">
+        <path d="M15 18l-6-6 6-6"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3"
+              stroke-linecap="round"
+              stroke-linejoin="round"/>
+    </svg>
+</div>
+
+
+
+
+</div>
+
+<div id="logoutPopup" style="display:none; position:fixed; top:20px; right:20px; background:#004d40; color:white; padding:10px 20px; border-radius:8px;">
+Logout successful!
+</div>
+
+<script>
+var params = new URLSearchParams(window.location.search);
+
+if(params.get("logout") === "success"){
+    var popup = document.getElementById("logoutPopup");
+    popup.style.display = "block";
+
+    setTimeout(() => {
+        popup.style.display = "none";
+    }, 3000);
+}
+</script>
+  
+
+<script src="./script.js"></script>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const error = params.get("error");
+
+    if (error === "invalid") {
+        const errorBox = document.getElementById("loginError");
+        errorBox.innerText = "Invalid username or password";
+        errorBox.classList.remove("hidden");
+    }
+
+</script>
+
+
+<script>
+
+
+
+/* Toggle to show Signup form */
+    function validateSignup() {
+     name = document.getElementById("signupName").value.trim();
+     username = document.getElementById("signupUser").value.trim();
+     contact = document.getElementById("signupContact").value.trim();
+     email = document.getElementById("signupEmail").value.trim();
+     pass = document.getElementById("signupPassword").value;
+     cpass = document.getElementById("signupConfirm").value;
+     error = document.getElementById("signupMsg");
+
+//     error.classList.add("hidden");  
+     //clear previous errors 
+     
+    if (name === "" || username === "" || contact === "" || email === "" || pass === "") {
+        error.textContent = "All fields are mandatory!";
+        error.classList.remove("hidden");
+        return false;
+    }
+
+    if (pass !== cpass) {
+        error.textContent = "Passwords do not match!";
+        error.classList.remove("hidden");
+        error.style.color = "red";
+        return false;
+    }
+    return true;
+    }
+
+    function validateLogin() {
+     username = document.getElementById("loginUsername").value.trim();
+     password = document.getElementById("loginPassword").value;
+     error = document.getElementById("loginError");
+
+    error.classList.add("hidden");
+    error.style.color = "red";
+
+    if (username === "" || password === "") {
+        error.textContent = "Please fill all required fields";
+        error.classList.remove("hidden");
+        return false;
+    }
+
+    // ✅ VALID → submit form to LoginServlet
+    return true;
+    }
+
+   
+//     
+        function showForgot() {
+    hideAll();
+    document.getElementById("forgotBox").style.display = "block";
+}
+
+
+   
+
+    
+
+
+</script>
+
+    <!-- Google Login Button code upar hoga -->
+
+    <script>
+    function handleCredentialResponse(response) {
+    // 1. Google se token lo
+    const token = response.credential;
+
+    // 2. Servlet ko data bhejo (using fetch)
+//    fetch("/Vibhag_Setu/GoogleLoginServlet", {
+//    method: "POST",
+//    headers: {
+//        "Content-Type": "application/x-www-form-urlencoded"
+//    },
+//    body: "token=" + encodeURIComponent(response.credential)
+//})
+//
+fetch("GoogleLoginServlet", {   // ✅ simple & safe
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "token=" + encodeURIComponent(token)
+    })
+//    fetch("GoogleLoginServlet?token="+token, {
+//        method:"POST"
+//    })
+    .then(res => res.text())
+    .then(status => {
+        if (status.trim() === "success") {
+            // ✅ Yahan se dashboard khulega
+            window.location.href = "adminDash.jsp"; 
+        } else {
+            alert("Google Login Failed: " + status);
+        }
+    })
+    .catch(err => console.error("Error:", err));
+    }
+const params = new URLSearchParams(window.location.search);
+
+if(params.get("logout") === "success"){
+    alert("Logout successful!");
+}
+    </script>
+
+</body>
+</html>
